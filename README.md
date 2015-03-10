@@ -7,7 +7,7 @@ Linkit
 
 ## Työn aihe
 
-[linkki valmiiseen aiheeseen:](http://advancedkittenry.github.io/suunnittelu_ja_tyoymparisto/aiheet/Aanestys.html) 
+[linkki valmiiseen aiheeseen: Äänestys](http://advancedkittenry.github.io/suunnittelu_ja_tyoymparisto/aiheet/Aanestys.html) 
 
 ## Copy paste aiheesta :
 
