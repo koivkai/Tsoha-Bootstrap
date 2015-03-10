@@ -1,8 +1,8 @@
 # Tietokantasovelluksen esittelysivu
 
-Yleisiä linkkejä:
+Linkit
 
-* [Linkki sovellukseeni](https://www.cs.helsinki.fi)
+* [Linkki sovellukseeni](http://kaiukoiv.users.cs.helsinki.fi/tsoha/)
 * [Linkki dokumentaatiooni](https://www.github.com)
 
 ## Työn aihe
