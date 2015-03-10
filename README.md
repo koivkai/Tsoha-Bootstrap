@@ -3,7 +3,7 @@
 Linkit
 
 * [Linkki sovellukseeni](http://kaiukoiv.users.cs.helsinki.fi/tsoha/)
-* [Linkki dokumentaatiooni](https://www.github.com)
+* [Linkki dokumentaatiooni](https://github.com/koivkai/Tsoha-Bootstrap/blob/master/doc/dokumentaatio.pdf)
 
 ## Työn aihe
 
