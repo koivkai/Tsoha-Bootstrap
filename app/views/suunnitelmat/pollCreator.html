@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Luo uusi äänestys</h1>
+
+  <form>
+  <label>Valitse miten paljon äänestäjät saavat tietää annetuista äänistä äänestyksen aikana</label>
+    <div class="radio">
+      <label>
+        <input type="radio" name="dispSelector">Ei mitään
+      </label>
+    </div>
+    <div class="radio">
+      <label>
+        <input type="radio" name="dispSelector">Kolmen kärki
+      </label>
+    </div>
+    <div class="radio">
+      <label>
+        <input type="radio" name="dispSelector">Kaikki äänet
+      </label>
+    </div>
+    <div class="form-group">
+      <label>Vaihtoehdon nimi</label>
+      <input type="text" class="form-control">
+    </div>
+    <div class="form-group">
+      <label> Vaihtoehdon kuvaus</label>
+      <textarea class="form-control">        
+      </textarea>
+    </div>
+    <div class="form-group">
+      <label>Vaihtoehdon nimi</label>
+      <input type="text" class="form-control">
+    </div>
+    <div class="form-group">
+      <label> Vaihtoehdon kuvaus</label>
+      <textarea class="form-control">        
+      </textarea>
+    </div>
+    <div class="form-group">
+      <label>Vaihtoehdon nimi</label>
+      <input type="text" class="form-control">
+    </div>
+    <div class="form-group">
+      <label> Vaihtoehdon kuvaus</label>
+      <textarea class="form-control">        
+      </textarea>
+    </div>
+    
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary">Luo äänestys</button>
+      <button type="submit" class="btn btn-success">Lisää vaihtoehto</button>
+    </div>
+      </form>
+{% endblock %}

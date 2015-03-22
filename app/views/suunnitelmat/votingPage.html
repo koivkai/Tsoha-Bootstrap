@@ -1,0 +1,33 @@
+
+{% extends "base.html" %}
+{% block content %}
+  
+  <h1>Äänestyksen nimi tähän</h1>
+
+  <!-- Muista tehdä sirommat kuvaus napit-->
+
+  <form>
+    <div class="radio">
+      <label>
+        <input type="radio" name="dispSelector">Pepsi
+      </label>
+      <button class="btn btn-info">Vaihtoehdon kuvaus</button>
+    </div>
+    <div class="radio">
+      <label>
+        <input type="radio" name="dispSelector">Coca-cola
+      </label>
+      <button class="btn btn-info">Vaihtoehdon kuvaus</button>
+    </div>
+    <div class="radio">
+      <label>
+        <input type="radio" name="dispSelector">Mountain dew
+      </label>
+      <button class="btn btn-info">Vaihtoehdon kuvaus</button>
+    </div>
+
+
+
+  </form>
+  
+{% endblock %}

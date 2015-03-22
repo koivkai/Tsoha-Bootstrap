@@ -11,4 +11,30 @@
       // Testaa koodiasi täällä
       View::make('helloworld.html');;
     }
+
+    public static function frontPage(){
+      // Testaa koodiasi täällä
+      View::make('suunnitelmat/frontPage.html');;
+    }
+
+    public static function pollCreator(){
+      // Testaa koodiasi täällä
+      View::make('suunnitelmat/pollCreator.html');;
+    }
+
+    public static function pollResults(){
+      // Testaa koodiasi täällä
+      View::make('suunnitelmat/pollResults.html');;
+    }
+
+    public static function votingPage(){
+      // Testaa koodiasi täällä
+      View::make('suunnitelmat/votingPage.html');;
+    }
+
+    public static function loginPage(){
+      // Testaa koodiasi täällä
+      View::make('suunnitelmat/loginPage.html');;
+    }
+
   }
