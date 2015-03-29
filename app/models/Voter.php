@@ -63,7 +63,7 @@ class Voter extends BaseModel {
 		return null;
 	}
 
-	public function makeVoter($voterName, $password, $firstName, $lastName, $email) {
+	public static function makeVoter($voterName, $password, $firstName, $lastName, $email) {
 		$query = DB::connection()->prepare('insert into Voter (voterName, password, firstName, lastName, email) values (:voterName, :password, :firstName, :lastName, :email) returning voterID');
 
 		$query->execute(array('voterID' => $voterName, 'password' => $firstName, 'firstName' => $firstName, 'lastName' => $lastName, 'email' => $email));
@@ -76,5 +76,9 @@ class Voter extends BaseModel {
 
 
 
+	}
+
+	public static function updateVoter() {
+		
 	}
 }

@@ -37,4 +37,23 @@
       View::make('suunnitelmat/loginPage.html');;
     }
 
+    public static function voterList() {
+    $voters = Voter::AllVoters();
+
+    View::make('voter/voterList.html', array('voters' => $voters));
+    }
+
+    public static function store(){
+    
+    $params = $_POST;
+
+    $voterName => $params['voterName'],
+    $password => $params['password'],
+    $firstName => $params['firstName'],
+    $lastName => $params['lastName']
+    $lemail => $params['email']
+    
+    Voter::update(); //TODO
+  }
+
   }

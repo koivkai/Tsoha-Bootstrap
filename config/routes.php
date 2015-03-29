@@ -27,3 +27,7 @@
   $routes->get('/loginPage', function() {
     HelloWorldController::loginPage();
   });
+
+  $routes->get('/voterList', function() {
+    HelloWorldController::voterList();
+  });

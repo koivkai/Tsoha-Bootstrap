@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Uuden äänestyksen luonti</h1>
+
+  <form method="post" action="{{base_path}}/game">
+    
+    <div class="form-group">
+      <label>Äänestyksen nimi</label>
+      <input type="text" name="pollName" class="form-control">
+    </div>
+
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary">Luo äänestys</button>
+      <button type="submit" class="btn btn-success">Lisää vaihtoehto</button>
+    </div>
+
+    
+  </form>
+{% endblock %}
