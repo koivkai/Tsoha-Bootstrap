@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Rekisteröityneet käyttäjät</h1>
+
+  <p>
+    <a href="{{base_path}}/voter/new" class="btn btn-success">Lisää peli</a>
+  </p>
+
+  <table class="table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th>KäyttäjänID/th>
+        <th>Käyttäjänimi</th>
+        <th>Salasana</th>
+        <th>Etunimi</th>
+        <th>Sukunimi</th>
+        <th>Sähköpostiosoite</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for voter in voters %}
+        <tr>
+          <td>{{voter.voterID}}</td>
+          <td>{{voter.voterName}}</td>
+          <td>{{voter.password}}</td>
+          <td>{{voter.firstName}}</td>
+          <td>{{voter.lastName}}</td>
+          <td>{{voter.email}}</td>
+          <td><a class="btn btn-default btn-sm">Muokkaa</a></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
