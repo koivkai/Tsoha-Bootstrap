@@ -43,7 +43,7 @@
     View::make('voter/voterList.html', array('voters' => $voters));
     }
 
-    public static function store(){
+    public static function voterEdit(){
     
     $params = $_POST;
 
@@ -54,6 +54,8 @@
     $lemail => $params['email']
     
     Voter::update(); //TODO
+
+    Redirect::to('/suunnitelmat/fronPage')
   }
 
   }
