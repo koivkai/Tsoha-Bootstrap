@@ -1,7 +1,7 @@
-INSERT INTO Poll (name, endDate, startDate) VALUES ('Testi', '2015-08-07', '2015-09-08');
+INSERT INTO Poll (name, endDate, startDate, visibility) VALUES ('Testi', '2015-08-07', '2015-09-08', 'A');
 
 
-INSERT INTO Voter (voterName, password, firstName, lastName, email) VALUES ('SnowMan99', 'salasana', 'John', 'Snow', 'JSnow@lolcats.com');
+INSERT INTO Voter (username, password, firstName, lastName, email) VALUES ('SnowMan99', 'salasana', 'John', 'Snow', 'JSnow@lolcats.com');
 
 INSERT INTO Option (optionName, optionDesc, votesReceived, parentPoll) VALUES ('Pepsi', 'Pepsi, normaali pepsi ei light, zero tai muuta roskaa', 2000, 1);
 

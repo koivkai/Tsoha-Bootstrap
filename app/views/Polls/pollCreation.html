@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Uuden äänestyksen luonti</h1>
+
+  <form method="post" action="{{base_path}}/Polls">
+
+    <div class="form-group">
+      <label>Äänestyksen nimi</label>
+      <input type="text" name="name" class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label>Aloituspäivä (yyyy-mm-dd)</label>
+      <input type="date" name="startDate" min="2015-04-21" max="3000-01-01" class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label>Lopetuspäivä (yyyy-mm-dd)</label>
+      <input type="date" name="endDate" min="2015-04-21" max="3000-01-01" class="form-control">
+    </div>
+
+
+    <div>
+      <label>Mitä äänestäjälle näytetään tuloksista</label>
+      <br>
+      <input type="radio" value="A" name="visibility">Kaikki
+      <br>
+      <input type="radio" value="N" name="visibility">Ei mitään
+      <br>
+      <input type="radio" value="T" name="visibility">Kärki
+    </div>  
+
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary">Luo äänestys</button>
+    </div>
+
+    
+  </form>
+{% endblock %}

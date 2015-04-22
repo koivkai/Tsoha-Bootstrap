@@ -43,19 +43,6 @@
     View::make('voter/voterList.html', array('voters' => $voters));
     }
 
-    public static function voterEdit(){
-    
-    $params = $_POST;
-
-    $voterName => $params['voterName'],
-    $password => $params['password'],
-    $firstName => $params['firstName'],
-    $lastName => $params['lastName']
-    $lemail => $params['email']
-    
-    Voter::update(); //TODO
-
-    Redirect::to('/suunnitelmat/fronPage')
-  }
+ 
 
   }

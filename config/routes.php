@@ -31,3 +31,16 @@
   $routes->get('/voterList', function() {
     HelloWorldController::voterList();
   });
+
+  $routes->get('/Polls', function() {
+    PollController::makePollList();
+  });
+
+  $routes->post('/Polls/', function() {
+    PollController::store();
+  });
+
+  $routes->get('/Polls/new', function() {
+    PollController::newPoll();
+  });
+

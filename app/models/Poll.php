@@ -2,7 +2,7 @@
 
 class Poll extends BaseModel {
 
-	public $pollID, $name, $startDate, $endDate;
+	public $pollID, $name, $startDate, $endDate, $visibility;
 
 //	public function __construct($name, $startDate, $endDate) {
 //		
@@ -17,72 +17,67 @@ class Poll extends BaseModel {
   	}
 
 	public static function AllPolls(){
-		$polls = new array();
-
-		$query = DB::connection()->prepare('select * from Poll')
+		
+		$query = DB::connection()->prepare('select * from Poll');
 
 		$query->execute();
 
 		$rows = $query->fetchAll();
 
+		$polls = array();
+
+
 		foreach ($rows as $row) {
-			$pollID = $row['pollID'];
-			$name = $row['name'];
-			$startDate = $row['startDate'];
-			$endDate = $row['endDate'];
-			
 
+			$polls[] = new Poll(array(
+				'pollID' => $row['pollid'],
+				'name' => $row['name'],
+				'startDate' => $row['startdate'],
+				'endDate' => $row['enddate'],
+				'visibility' => $row['visibility']
+			));
 
-			$newPoll = new Poll(array('pollID' => $pollID, 'name' => $name, 'startDate' => $startDate, 'endDate' =>$endDate));
-			
-			array_push($polls, $newPoll);
 		}
 
 		return $polls;
 	}
 
-//	public static function findByID($searchedID) {
-//		$query = DB::connection()->prepare('select * from Voter where voterID = :VoterID LIMIT 1');
-//		$query->execute(array('VoterID' => $searchedID));
-//		$row = $query->fetch();
-//
-//		if($row){	
-//			$id = $row['voterID'];
-//			$Vname = $row['voterName'];
-//			$password = $row['password'];
-//			$Fname = $row['firstName'];
-//			$Lname = $row['lastName'];
-//			$email = $row['email'];
-//
-//			$newVoter = new Voter($id, $Vname, $password, $Fname, $Lname, $email);
-//
-//			return $newVoter;
-//
-//		}
-//
-//
-//
-//		return null;
-//	}
+	public static function findByID($searchedID) {
+		$query = DB::connection()->prepare('select * from Poll where pollid= :pollID LIMIT 1');
+		$query->execute(array('pollID' => $searchedID));
+		$row = $query->fetch();
 
-	public static createPoll($name, $startDate, $endDate) {
-		$query = DB::connection()->prepare('insert into Poll (name, startDate, endDate, ) values (:name, :startDate, :endDate)');
+		if($row){ $poll = new Poll(array(
+			$id = $row['pollid'],
+			$Vname = $row['name'],
+			$password = $row['startdate'],
+			$Fname = $row['enddate'],
+			$visibility => $row['visibility']
+			));	
+			
+		return $poll;
 
-		$query->execute(array('name' => $name, 'startDate' => $startDate, 'endDate' => $endDate));
-
-		
+		}
 
 
 
-
+		return null;
 	}
 
-	public function addToDBase () {
-		$query = DB::connection()->prepare('insert into Poll (name, startDate, endDate, ) values (:name, :startDate, :endDate)');
+	
 
-		$query->execute(array('name' => $this->name, 'startDate' => $this->startDate, 'endDate' => $this->endDate));
+	public function save(){
+    
+    $query = DB::connection()->prepare('INSERT INTO Poll (name, startdate, enddate, visibility) VALUES (:name, :startdate, :enddate, :visibility) returning pollid');
+    $query->execute(array('name' => $this->name, 'startdate' => $this->startDate, 'enddate' => $this->endDate, 'visibility' => $this->visibility));
+ 
+    $row = $query->fetch();
 
-	}
+    Kint::trace();
+    Kint::dump($row);
+ 
+    $this->pollID = $row['pollid'];
+  	}
 
 	public static function updatePoll() {
 		

@@ -1,8 +1,9 @@
  CREATE TABLE Poll(
-  pollID SERIAL PRIMARY KEY, 
+  pollid SERIAL PRIMARY KEY, 
   name varchar(50) NOT NULL, 
   startDate DATE not null,
-  endDate DATE NOT NULL
+  endDate DATE NOT NULL,
+  visibility varchar(1) not null -- A kaikki, T kärki, N ei mitään
 );
 
 CREATE TABLE Voter (

@@ -44,16 +44,16 @@ class Voter extends BaseModel {
 	}
 
 	public static function findByID($searchedID) {
-		$query = DB::connection()->prepare('select * from Voter where voterID = :VoterID LIMIT 1');
+		$query = DB::connection()->prepare('select * from Voter where voterid = :VoterID LIMIT 1');
 		$query->execute(array('VoterID' => $searchedID));
 		$row = $query->fetch();
 
 		if($row){$newVoter = new Voter(array(
-			'voterID' = $row['voterID'];
+			'voterID' = $row['voterid'];
 			'username' = $row['username'];
 			'password' = $row['password'];
-			'firstName' = $row['firstName'];
-			'lastName' = $row['lastName'];
+			'firstName' = $row['firstname'];
+			'lastName' = $row['lastname'];
 			'email' = $row['email'];
 			))
 
