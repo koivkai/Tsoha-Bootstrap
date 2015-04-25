@@ -26,4 +26,31 @@
       return $errors;
     }
 
+    public static function validate_max_lenght($string, $lenght) {
+      $truelenght = strlen($string);
+
+      if (truelenght > $lenght) {
+        return false;
+      }
+
+      return true;
+    }
+
+    public static function validate_min_lenght($string, $lenght) {
+      $truelenght = strlen($string);
+
+      if (truelenght < $lenght) {
+        return false;
+      }
+
+      return true;
+    }
+
+    public static function validate_is_a_date($date) {
+      if (preg_match("\d\d\d\d-\d\d-\d\d", $date)) {
+          return true;
+      }
+      return false;
+    }
+
   }

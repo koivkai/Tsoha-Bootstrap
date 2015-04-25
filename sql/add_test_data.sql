@@ -1,4 +1,4 @@
-INSERT INTO Poll (name, endDate, startDate, visibility) VALUES ('Testi', '2015-08-07', '2015-09-08', 'A');
+INSERT INTO Poll (name, endDate, startDate, visibility) VALUES ('Testi', '2015-10-07', '2015-09-08', 'A');
 
 
 INSERT INTO Voter (username, password, firstName, lastName, email) VALUES ('SnowMan99', 'salasana', 'John', 'Snow', 'JSnow@lolcats.com');
