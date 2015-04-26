@@ -40,7 +40,15 @@
     PollController::store();
   });
 
+  $routes->post('/Polls/makeNewOption', function() {
+    OptionController::store();
+  });
+
   $routes->get('/Polls/new', function() {
     PollController::newPoll();
+  });
+
+  $routes->get('/Polls/:id', function($id) {
+    PollController::show($id);
   });
 

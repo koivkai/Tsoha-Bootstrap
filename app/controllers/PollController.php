@@ -52,7 +52,7 @@ class PollController extends BaseController{
 
     // Alustetaan olio käyttäjän syöttämillä tiedoilla
     $poll = new Poll($attributes);
-    $errors = $game->errors();
+    $errors = $poll->errors();
 
     if(count($errors) > 0){
       View::make('Polls/editPoll.html', array('errors' => $errors, 'attributes' => $attributes));
@@ -60,8 +60,20 @@ class PollController extends BaseController{
       // Kutsutaan alustetun olion update-metodia, joka päivittää pelin tiedot tietokannassa
       $poll->update();
 
-      Redirect::to('/Polls/' . $game->id, array('message' => 'Peliä on muokattu onnistuneesti!'));
+      Redirect::to('/Polls/' , array('message' => 'Peliä on muokattu onnistuneesti!'));
     }
+  }
+
+  public static function show($id) {
+    $poll = Poll::findByID($id);
+
+    Kint::dump($poll);
+
+    $options = Option::findByID($id);
+
+    Kint::dump($options);
+
+    View::make('Polls/pollResults.html',  array('options' => $options, 'Poll' => $poll));
   }
 
 }

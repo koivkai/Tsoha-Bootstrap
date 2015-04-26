@@ -1,35 +1,33 @@
 {% extends "base.html" %}
 {% block content %}
   
-<h1>Äänestykset</h1>
+<h1>{{Poll.name}}</h1>
 
   
 
   <table class="table table-striped table-bordered">
     <thead>
       <tr>
-        <th>Äänestyksen nimi</th>
-        <th>Alkupäivä</th>
-        <th>Loppupäivä</th>
+        <th>Vaihtoehdon nimi</th>
+        <th>Kuvaus</th>
+        <th>Ääniä</th>
         
-        <th></th>
+        
       </tr>
     </thead>
 
     <tbody>
-      {% for Poll in polls %}
+      {% for Option in options %}
         <tr>
-          <td>{{Poll.name}}</td>
-          <td>{{Poll.startDate}}</td>
-          <td>{{Poll.endDate}}</td>
+          <td>{{Option.name}}</td>
+          <td>{{Option.desc}}</td>
+          <td>{{Option.votes}}</td>
           
-          <td><a href='?'>Äänestykseen</a></td>
+          
         </tr>
       {% endfor %}
     </tbody>
   </table>
-
-
 
   <div class="alert alert-success">
   {{message}}
