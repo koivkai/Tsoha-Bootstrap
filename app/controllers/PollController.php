@@ -76,4 +76,16 @@ class PollController extends BaseController{
     View::make('Polls/pollResults.html',  array('options' => $options, 'Poll' => $poll));
   }
 
+  public static function makeVotePage($id) {
+    $poll = Poll::findByID($id);
+
+    Kint::dump($poll);
+
+    $options = Option::findByID($id);
+
+    Kint::dump($options);
+
+    View::make('Polls/pollVotepage.html',  array('options' => $options, 'Poll' => $poll));
+  }
+
 }

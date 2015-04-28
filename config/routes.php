@@ -32,6 +32,10 @@
     HelloWorldController::voterList();
   });
 
+  $routes->post('/Polls/makeNewOption', function() {
+    OptionController::store();
+  });
+
   $routes->get('/Polls', function() {
     PollController::makePollList();
   });
@@ -40,9 +44,6 @@
     PollController::store();
   });
 
-  $routes->post('/Polls/makeNewOption', function() {
-    OptionController::store();
-  });
 
   $routes->get('/Polls/new', function() {
     PollController::newPoll();
@@ -52,3 +53,14 @@
     PollController::show($id);
   });
 
+  $routes->get('/Polls/:id/addOption', function($id) {
+    OptionController::newOption($id);
+  });
+
+  $routes->get('/Polls/votePage/:id', function($id) {
+    PollController::makeVotePage($id);
+  });
+
+  $routes->post('/Polls/vote/:id', function($id) {
+    VoteController::vote($id);
+  });

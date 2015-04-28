@@ -23,7 +23,7 @@
           <td>{{Poll.startDate}}</td>
           <td>{{Poll.endDate}}</td>
           
-          <td><a href='?'>Äänestykseen</a></td>
+          <td><a href='{{base_path}}/Polls/votePage/{{Poll.pollID}}'>Äänestykseen</a></td>
         </tr>
       {% endfor %}
     </tbody>

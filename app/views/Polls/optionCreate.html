@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-  <h1>Uuden äänestyksen luonti</h1>
+  <h1>Uuden vaihtoehdon luonti </h1>
 
   <form method="post" action="{{base_path}}/Polls/makeNewOption">
 
@@ -16,7 +16,7 @@
 
     <div class="form-group">
       <label>Äänestyksen tunnus</label>
-      <input type="text" name="parentID" class="form-control" value="{{Poll.pollID}}" disabled>
+      <input type="text" name="parentPoll" class="form-control" value="{{poll.pollID}}" readonly>
     </div>
      
     <div class="form-group">

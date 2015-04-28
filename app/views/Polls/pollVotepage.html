@@ -22,21 +22,22 @@
         <tr>
           <td>{{Option.name}}</td>
           <td>{{Option.desc}}</td>
+          {% if Poll.visibility == A %}
           <td>{{Option.votes}}</td>
-          <td><a href="{{base_path}}">Muokkaa</a></td>
-          <td><a href="{{base_path}}">Poista</a></td>
-          
+          {% endif %}
+
+          <td>
+          <form method="post" action="{{base_path}}/Polls/vote/{{Option.optionID}}">
+          <button type="submit" class="btn btn-primary">Äänestä</button>
+          </form>
+          </td>
           
         </tr>
       {% endfor %}
     </tbody>
   </table>
 
-  <div><button type="submit" class="btn btn-success" href="{{base_path}}/Polls/{{Poll.pollID}}/addOption">Lisää vaihtoehto</button></div>
-
-  <div class="alert alert-success">
-  {{message}}
-  </div>
+  
 
 
 {% endblock %}

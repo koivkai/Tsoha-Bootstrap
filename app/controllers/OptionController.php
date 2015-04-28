@@ -8,15 +8,26 @@ class OptionController extends BaseController{
 		$option = new Option(array(
       		'name' => $parametrit['name'],
       		'desc' => $parametrit['optiondesc'],
-      		'parentID' => $parametrit['parenID'],
-      		'visibility' => $parametrit['visibility']
+      		'parentPoll' => $parametrit['parentPoll']
+      		
    		 ));
 
 //		Kint::dump($parametrit);
 
+		Kint::dump($option);
+
 		$option->save();
 
-		Redirect::to('/Poll/pollOptionEdit', array('message' => 'Äänestys lisätty!'));
+		Redirect::to('/Polls', array('message' => 'Vaihtoehto lisätty!'));
+	}
+
+	public static function newOption($id) {
+
+		$poll = Poll::findByID($id);
+
+		Kint::dump($poll);
+
+		View::make('/Polls/optionCreate.html' , array('poll' => $poll));
 	}  
 
 }
