@@ -1,32 +1,33 @@
  CREATE TABLE Poll(
   pollid SERIAL PRIMARY KEY, 
   name varchar(50) NOT NULL, 
-  startDate DATE not null,
-  endDate DATE NOT NULL,
-  visibility varchar(1) not null -- A kaikki, T kärki, N ei mitään
+  startdate DATE not null,
+  enddate DATE NOT NULL,
+  visibility varchar(1) not null, -- A kaikki, T kärki, N ei mitään
+  ownerid INTEGER REFERENCES Voter(voterid)
 );
 
 CREATE TABLE Voter (
-	voterID SERIAL PRIMARY KEY,
+	voterid SERIAL PRIMARY KEY,
 	username varchar(20) NOT NULL,
 	password varchar(20) NOT NULL,
-	firstName varchar(20) NOT NULL,
-	lastName varchar(20) NOT NULL,
+	firstname varchar(20) NOT NULL,
+	lastname varchar(20) NOT NULL,
 	email varchar(254) NOT NULL
 );
 
 CREATE TABLE Option (
-	optionID SERIAL PRIMARY Key,
-	optionName varchar(100) NOT NULL,
-	optionDesc varchar(400) NOT NULL,
-	votesReceived INTEGER NOT null,
-	parentPoll INTEGER REFERENCES Poll(pollID)
+	optionid SERIAL PRIMARY Key,
+	optionname varchar(100) NOT NULL,
+	optiondesc varchar(400) NOT NULL,
+	votesreceived INTEGER NOT null,
+	parentpoll INTEGER REFERENCES Poll(pollID)
 );
 
 CREATE TABLE Vote (
 	caster INTEGER REFERENCES Voter(voterID),
-	castIn INTEGER REFERENCES Poll(pollID),
-	castDate DATE NOT NULL,
+	castin INTEGER REFERENCES Poll(pollID),
+	castdate DATE NOT NULL,
 	PRIMARY KEY(caster, CastIn)
 );
 

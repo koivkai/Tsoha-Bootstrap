@@ -7,7 +7,8 @@ class Option extends BaseModel {
   		}
 
   		public static function findByID($searchedID) { // kaikki tietyn Äänestyksen vaihtoehdot
-		$query = DB::connection()->prepare('select * from Options where parentpoll= :pollID order by votesreceived DESC');
+		$query = DB::connection()->prepare('select * from Option where parentpoll = :pollID order by votesreceived DESC');
+		$searchedID = intval($searchedID);
 		$query->execute(array('pollID' => $searchedID));
 		$rows = $query->fetchAll();
 
@@ -40,8 +41,8 @@ class Option extends BaseModel {
  
    		 	$row = $query->fetch();
 
-//    Kint::trace();
-//    Kint::dump($row);
+    Kint::trace();
+    Kint::dump($row);
  
     		$this->optionID = $row['optionid'];
   		}
@@ -49,7 +50,7 @@ class Option extends BaseModel {
   		
 
   		public static function findByOptionID($searchedID) { // tietty vaihtoehto
-		$query = DB::connection()->prepare('select * from Options where optionid= :optionid order by votesreceived DESC');
+		$query = DB::connection()->prepare('select * from Option where optionid= :optionid order by votesreceived DESC');
 		$query->execute(array('optionid' => $searchedID));
 		$row = $query->fetch();
 

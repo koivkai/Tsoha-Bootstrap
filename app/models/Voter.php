@@ -2,62 +2,70 @@
 
 class Voter extends BaseModel {
 
-	public $voterID, $username, $password, $firstName, $lastName, $email;
+	public $voterID, $username, $password, $firstname, $lastname, $email;
 
-//	public function __construct($voterID, $username, $password, $firstName, $lastName, $email) {
-//		$this->voterID = $voterID;
-//		$this->username = $username;
-//		$this->password = $password;
-//		$this->firstName = $firstName;
-//		$this->lastName = $lastName;
-//		$this->email = $email;
-//
-//	}
+
 
 	public function __construct($attributes){
     	parent::__construct($attributes);
   	}
 
-	public static function AllVoters(){
-		$voters = new array();
+  	public static function authenticate($username, $password) {
 
-		$query = DB::connection()->prepare('select * from Voter')
+  		Kint::dump($username);
+  		Kint::dump($password);
 
-		$query->execute();
+  		$query = DB::connection()->prepare('SELECT * FROM Voter WHERE username = :name AND password = :password LIMIT 1');
+		$query->execute(array('name' => $username, 'password' => $password));
+		$row = $query->fetch();
+		Kint::dump($row);
+		if($row){
 
-		$rows = $query->fetchAll();
+			$voter = new Voter(array(
+				'voterID' => $row['voterid'],
+				'username' => $row['username'],
+				'password' => $row['password'],
+				'firstname' => $row['firstname'],
+				'lastname' => $row['lastname'],
+				'email' => $row['email']
+			));
 
-		foreach ($rows as $row) { $newVoter = new Voter(array(
-			'voterID' = $row['voterID'];
-			'username' = $row['username'];
-			'password' = $row['password'];
-			'firstName' = $row['firstName'];
-			'lastName' = $row['lastName'];
-			'email' = $row['email'];
-			))
-			
-
-			array_push($voters, $newVoter);
+			return $voter;
+  			
+		}else{
+  			return null;
 		}
 
-		return $voters;
-	}
+  	}
 
-	public static function findByID($searchedID) {
-		$query = DB::connection()->prepare('select * from Voter where voterid = :VoterID LIMIT 1');
-		$query->execute(array('VoterID' => $searchedID));
+  	public function save(){
+    
+    	$query = DB::connection()->prepare('INSERT INTO Voter (username, password, firstname, lastname, email) VALUES (:username, :password, :firstname, :lastname, :email) returning voterid');
+    	$query->execute(array('username' => $this->username, 'password' => $this->password, 'firstname' => $this->firstname, 'lastname' => $this->lastname, 'email' => $this->email));
+ 
+   		 $row = $query->fetch();
+
+//    Kint::trace();
+//    Kint::dump($row);
+ 
+    	$this->voterID = $row['voterid'];
+  	}
+
+  	public static function findByID($searchedID) {
+		$query = DB::connection()->prepare('select * from Voter where voterid= :voterid LIMIT 1');
+		$query->execute(array('voterid' => $searchedID));
 		$row = $query->fetch();
 
-		if($row){$newVoter = new Voter(array(
-			'voterID' = $row['voterid'];
-			'username' = $row['username'];
-			'password' = $row['password'];
-			'firstName' = $row['firstname'];
-			'lastName' = $row['lastname'];
-			'email' = $row['email'];
-			))
-
-			return $newVoter;
+		if($row){ $voter = new Voter(array(
+			'voterID' => $row['voterid'],
+			'username' => $row['username'],
+			'password' => $row['password'],
+			'firstname' => $row['firstname'],
+			'lastname' => $row['lastname'],
+			'email' => $row['email']
+			));	
+			
+		return $voter;
 
 		}
 
@@ -66,20 +74,7 @@ class Voter extends BaseModel {
 		return null;
 	}
 
-	public static function makeVoter($username, $password, $firstName, $lastName, $email) {
-		$query = DB::connection()->prepare('insert into Voter (username, password, firstName, lastName, email) values (:username, :password, :firstName, :lastName, :email) returning voterID');
 
-		$query->execute(array('voterID' => $username, 'password' => $firstName, 'firstName' => $firstName, 'lastName' => $lastName, 'email' => $email));
-
-		$row = $query->fetch();
-		Kint::trace();
-		Kint::dump($row);
-
-
-
-
-
-	}
 
 	public static function updateVoter() {
 		

@@ -24,12 +24,14 @@
     HelloWorldController::votingPage();
   });
 
-  $routes->get('/loginPage', function() {
-    HelloWorldController::loginPage();
-  });
 
   $routes->get('/voterList', function() {
     HelloWorldController::voterList();
+  });
+
+  $routes->post('/Polls/vote/:id', function($id) {
+    Kint::dump($id);
+    VoteController::vote($id);
   });
 
   $routes->post('/Polls/makeNewOption', function() {
@@ -43,6 +45,11 @@
   $routes->post('/Polls/', function() {
     PollController::store();
   });
+
+  $routes->post('/logout', function(){
+  VoterController::logout();
+  });
+
 
 
   $routes->get('/Polls/new', function() {
@@ -61,6 +68,27 @@
     PollController::makeVotePage($id);
   });
 
-  $routes->post('/Polls/vote/:id', function($id) {
-    VoteController::vote($id);
+  $routes->get('/login', function(){
+  // Kirjautumislomakkeen esittäminen
+  VoterController::login();
   });
+
+$routes->post('/login', function(){
+  // Kirjautumisen käsittely
+  VoterController::handle_login();
+});
+
+$routes->post('/reqister', function(){
+  // Kirjautumisen käsittely
+  VoterController::store();
+});
+
+$routes->get('/reqister', function(){
+  // Kirjautumislomakkeen esittäminen
+  VoterController::makeReqisterationPage();
+  });
+
+
+
+
+  

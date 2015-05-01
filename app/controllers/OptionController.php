@@ -12,7 +12,7 @@ class OptionController extends BaseController{
       		
    		 ));
 
-//		Kint::dump($parametrit);
+		Kint::dump($parametrit);
 
 		Kint::dump($option);
 
@@ -22,6 +22,7 @@ class OptionController extends BaseController{
 	}
 
 	public static function newOption($id) {
+		self::check_logged_in();
 
 		$poll = Poll::findByID($id);
 

@@ -6,7 +6,7 @@ class VoteController extends BaseController{
 
 		$option = Option::findByOptionID($optionID);
 
-		$currentVotes = $option->currentVotes();
+		$currentVotes = $option->currentVotes(); 
 
 		Option::vote($optionID, $currentVotes);
 

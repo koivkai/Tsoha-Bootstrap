@@ -12,6 +12,8 @@ class PollController extends BaseController{
 	}
 
 	public static function newPoll() {
+    self::check_logged_in();
+
 		View::make('Polls/pollCreation.html');
 
 	}
@@ -69,6 +71,7 @@ class PollController extends BaseController{
 
     Kint::dump($poll);
 
+
     $options = Option::findByID($id);
 
     Kint::dump($options);
@@ -77,9 +80,11 @@ class PollController extends BaseController{
   }
 
   public static function makeVotePage($id) {
+    self::check_logged_in();
     $poll = Poll::findByID($id);
 
     Kint::dump($poll);
+    Kint::dump($id);
 
     $options = Option::findByID($id);
 

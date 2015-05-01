@@ -22,12 +22,13 @@
         <tr>
           <td>{{Option.name}}</td>
           <td>{{Option.desc}}</td>
-          {% if Poll.visibility == A %}
+          
           <td>{{Option.votes}}</td>
-          {% endif %}
+          
 
           <td>
           <form method="post" action="{{base_path}}/Polls/vote/{{Option.optionID}}">
+          <input type="hidden" name="optionID" value="{{Option.optionID}}">  
           <button type="submit" class="btn btn-primary">Äänestä</button>
           </form>
           </td>
