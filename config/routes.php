@@ -50,8 +50,6 @@
   VoterController::logout();
   });
 
-
-
   $routes->get('/Polls/new', function() {
     PollController::newPoll();
   });

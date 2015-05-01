@@ -30,6 +30,10 @@ class PollController extends BaseController{
 
 //		Kint::dump($parametrit);
 
+    $user = self::get_user_logged_in();
+    $ownerid = $user->voterID;
+    $Poll->ownerid = $ownerid;
+
 		$Poll->save();
 
 		Redirect::to('/Polls', array('message' => 'Äänestys lisätty!'));
@@ -54,6 +58,11 @@ class PollController extends BaseController{
 
     // Alustetaan olio käyttäjän syöttämillä tiedoilla
     $poll = new Poll($attributes);
+
+    $user = self::get_user_logged_in();
+    $ownerid = $user->voterID;
+    $Poll->ownerid = $ownerid;
+
     $errors = $poll->errors();
 
     if(count($errors) > 0){

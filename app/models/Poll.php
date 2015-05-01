@@ -2,7 +2,7 @@
 
 class Poll extends BaseModel {
 
-	public $pollID, $name, $startDate, $endDate, $visibility;
+	public $pollID, $name, $startDate, $endDate, $visibility, $ownerid;
 
 
 
@@ -28,7 +28,8 @@ class Poll extends BaseModel {
 				'name' => $row['name'],
 				'startDate' => $row['startdate'],
 				'endDate' => $row['enddate'],
-				'visibility' => $row['visibility']
+				'visibility' => $row['visibility'],
+				'ownerid' => $row['ownerid']
 			));
 
 		}
@@ -46,7 +47,8 @@ class Poll extends BaseModel {
 			'name' => $row['name'],
 			'startDate' => $row['startdate'],
 			'endDate' => $row['enddate'],
-			'visibility' => $row['visibility']
+			'visibility' => $row['visibility'],
+			'ownerid' => $row['ownerid']
 			));	
 			
 		return $poll;
@@ -62,8 +64,8 @@ class Poll extends BaseModel {
 
 	public function save(){
     
-    	$query = DB::connection()->prepare('INSERT INTO Poll (name, startdate, enddate, visibility) VALUES (:name, :startdate, :enddate, :visibility) returning pollid');
-    	$query->execute(array('name' => $this->name, 'startdate' => $this->startDate, 'enddate' => $this->endDate, 'visibility' => $this->visibility));
+    	$query = DB::connection()->prepare('INSERT INTO Poll (name, startdate, enddate, visibility, ownerid) VALUES (:name, :startdate, :enddate, :visibility, :ownerid) returning pollid');
+    	$query->execute(array('name' => $this->name, 'startdate' => $this->startDate, 'enddate' => $this->endDate, 'visibility' => $this->visibility, 'ownerid' => $this->ownerid));
  
    		 $row = $query->fetch();
 
