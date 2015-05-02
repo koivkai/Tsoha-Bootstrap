@@ -12,6 +12,7 @@
         <th>Kuvaus</th>
         <th>Ääniä</th>
         <th></th>
+        <th></th>
         
         
       </tr>
@@ -24,12 +25,14 @@
           <td>{{Option.desc}}</td>
           
           <td>{{Option.votes}}</td>
+
+          <td><a href='{{base_path}}/Polls/editOption/{{Option.optionID}}'>Muokkaa vaihtoehtoa</a></td>
           
 
           <td>
-          <form method="post" action="{{base_path}}/Polls/vote/{{Option.optionID}}">
-          <input type="hidden" name="optionID" value="{{Option.optionID}}">  
-          <button type="submit" class="btn btn-primary">Äänestä</button>
+          <form method="post" action="{{base_path}}/Polls/destroyOption/{{Option.optionID}}">
+          <input type="hidden" name="pollID" value="{{Poll.pollID}}">  
+          <button type="submit" class="btn btn-danger">Poista</button>
           </form>
           </td>
           
@@ -38,7 +41,8 @@
     </tbody>
   </table>
 
-  
+  <div><a href="{{base_path}}/Polls/{{Poll.pollID}}/addOption">Lisää vaihtoehto</a></div>
+
 
 
 {% endblock %}

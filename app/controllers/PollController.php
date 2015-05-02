@@ -6,10 +6,19 @@ class PollController extends BaseController{
 
 		$polls = Poll::AllPolls();
 
-		Kint::dump($polls);
-
 		View::make('Polls/pollList.html', array('polls' => $polls));
 	}
+
+  public static function makeUserPollList() {
+    self::check_logged_in();
+
+    $user = self::get_user_logged_in();
+    $ownerid = $user->voterID;
+
+    $polls = Poll::findByOwnerID($ownerid);
+
+    View::make('Polls/myPolls.html', array('polls' => $polls));
+  }
 
 	public static function newPoll() {
     self::check_logged_in();
@@ -19,6 +28,8 @@ class PollController extends BaseController{
 	}
   
 	public static function store() {
+    self::check_logged_in();
+
 		$parametrit = $_POST;
 
 		$Poll = new Poll(array(
@@ -27,8 +38,6 @@ class PollController extends BaseController{
       		'endDate' => $parametrit['endDate'],
       		'visibility' => $parametrit['visibility']
    		 ));
-
-//		Kint::dump($parametrit);
 
     $user = self::get_user_logged_in();
     $ownerid = $user->voterID;
@@ -40,50 +49,68 @@ class PollController extends BaseController{
 	}  
 
 	public static function edit($id){
+      self::check_logged_in();
+
     	$poll = Poll::findByID($id);
-    	View::make('Poll/editPoll.html', array('attributes' => $game));
+
+      $user = self::get_user_logged_in();
+      $userid = $user->voterID;
+      $ownerid = $poll->ownerid;
+
+      if ($userid === $ownerid) {
+        View::make('Polls/pollEdit.html', array('poll' => $poll));
+      } else {
+        Redirect::to('/Polls/myPolls' , array('message' => 'Virhe: Valitsemasi äänestys ei näytä kuuluvan sinulle.'));
+      }
+
+    	
   	}
 
   	public static function update($id){
-    $params = $_POST;
 
-    $attributes = array(
-      'pollID' => $id,
-      'name' => $params['name'],
-      'startDate' => $params['startDate'],
-      'endDate' => $params['endDate'],
-      'published' => $params['published'],
-      'visibility' => $params['visibility']
-    );
+      self::check_logged_in();
 
-    // Alustetaan olio käyttäjän syöttämillä tiedoilla
-    $poll = new Poll($attributes);
+      $params = $_POST;
 
-    $user = self::get_user_logged_in();
-    $ownerid = $user->voterID;
-    $Poll->ownerid = $ownerid;
+      $attributes = array(
+        'pollID' => $id,
+        'name' => $params['name'],
+        'startDate' => $params['startDate'],
+        'endDate' => $params['endDate'],
+        'visibility' => $params['visibility']
+      );
 
-    $errors = $poll->errors();
+    
+      $poll = new Poll($attributes);
 
-    if(count($errors) > 0){
-      View::make('Polls/editPoll.html', array('errors' => $errors, 'attributes' => $attributes));
-    }else{
-      // Kutsutaan alustetun olion update-metodia, joka päivittää pelin tiedot tietokannassa
-      $poll->update();
+      $user = self::get_user_logged_in();
+      $ownerid = $user->voterID;
+      $Poll->ownerid = $ownerid;
 
-      Redirect::to('/Polls/' , array('message' => 'Peliä on muokattu onnistuneesti!'));
-    }
+ //     $errors = $poll->errors();
+
+ //     if(count($errors) > 0){
+   //     View::make('Polls/editPoll.html', array('errors' => $errors, 'poll' => $poll));
+  //    }else{
+      
+        $poll->update();
+
+        Redirect::to('/Polls/myPolls' , array('message' => 'Äänestystä on muokattu onnistuneesti!'));
+     // }
+  }
+
+  public static function destroy($id) {
+    $poll = Poll::findByID($id);
+
+    $poll->destroy();
+
+    Redirect::to('/Polls/myPolls' , array('message' => 'Äänestys poistettu.'));
   }
 
   public static function show($id) {
     $poll = Poll::findByID($id);
 
-    Kint::dump($poll);
-
-
     $options = Option::findByID($id);
-
-    Kint::dump($options);
 
     View::make('Polls/pollResults.html',  array('options' => $options, 'Poll' => $poll));
   }
@@ -92,14 +119,18 @@ class PollController extends BaseController{
     self::check_logged_in();
     $poll = Poll::findByID($id);
 
-    Kint::dump($poll);
-    Kint::dump($id);
+    $options = Option::findByID($id);
+
+    View::make('Polls/pollVotepage.html',  array('options' => $options, 'Poll' => $poll));
+  }
+
+  public static function makeResultsPage($id) {
+    self::check_logged_in();
+    $poll = Poll::findByID($id);
 
     $options = Option::findByID($id);
 
-    Kint::dump($options);
-
-    View::make('Polls/pollVotepage.html',  array('options' => $options, 'Poll' => $poll));
+    View::make('Polls/pollResults.html',  array('options' => $options, 'Poll' => $poll));
   }
 
 }

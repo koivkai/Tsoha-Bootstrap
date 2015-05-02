@@ -12,9 +12,6 @@ class OptionController extends BaseController{
       		
    		 ));
 
-		Kint::dump($parametrit);
-
-		Kint::dump($option);
 
 		$option->save();
 
@@ -26,9 +23,87 @@ class OptionController extends BaseController{
 
 		$poll = Poll::findByID($id);
 
-		Kint::dump($poll);
-
 		View::make('/Polls/optionCreate.html' , array('poll' => $poll));
-	}  
+	}
+
+	public static function makeOptionList($id) {
+    	self::check_logged_in();
+    	$poll = Poll::findByID($id);
+
+    	$user = self::get_user_logged_in();
+      	$userid = $user->voterID;
+      	$ownerid = $poll->ownerid;
+      	
+      	if ($userid === $ownerid) {
+      		$options = Option::findByID($id);
+
+    		View::make('Polls/optionList.html',  array('options' => $options, 'Poll' => $poll));
+      	} else {
+        	Redirect::to('/Polls/myPolls' , array('message' => 'Virhe: Valitsemasi äänestys ei näytä kuuluvan sinulle.'));
+      	}
+
+
+    	
+  	}
+
+  	public static function edit($id){
+      	self::check_logged_in();
+
+    	$option = Option::findByOptionID($id);
+
+      	$user = self::get_user_logged_in();
+      	$userid = $user->voterID;
+      	$parentPoll = $option->parentPoll;
+      	$poll = Poll::findByID($parentPoll);
+      	$ownerid = $poll->ownerid;
+
+      	if ($userid === $ownerid) {
+        	View::make('Polls/optionEdit.html', array('option' => $option));
+      	} else {
+        	Redirect::to('/Polls/myPolls' , array('message' => 'Virhe: Valitsemasi äänestys ei näytä kuuluvan sinulle.'));
+      	}
+
+    	
+  	}
+
+  	public static function update($id){
+
+      self::check_logged_in();
+
+      $params = $_POST;
+
+      $attributes = array(
+        'optionID' => $id,
+        'name' => $params['name'],
+        'desc' => $params['optiondesc'],
+        'parentPoll' => $params['parentPoll']
+      );
+
+    
+      $option = new Option($attributes);
+
+     
+
+ //     $errors = $poll->errors();
+
+ //     if(count($errors) > 0){
+   //     View::make('Polls/editPoll.html', array('errors' => $errors, 'poll' => $poll));
+  //    }else{
+      
+        $option->update();
+
+        Redirect::to('/Polls/myPolls' , array('message' => 'Vaihtoehtoa on muokattu onnistuneesti!'));
+     // }
+  	}  
+
+  	public static function destroy($id) {
+    	$option = Option::findByOptionID($id);
+
+    	$option->destroy();
+
+    	Redirect::to('/Polls/myPolls' , array('message' => 'Vaihtoehto poistettu.'));
+  	}
+
+
 
 }

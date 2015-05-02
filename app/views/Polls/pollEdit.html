@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Äänestyksen muokkaus</h1>
+
+  <form method="post" action="{{base_path}}/Polls/{{poll.pollID}}/edit">
+
+    <div class="form-group">
+      <label>Äänestyksen nimi</label>
+      <input type="text" name="name" class="form-control" value="{{poll.name}}" required>
+    </div>
+
+    <div class="form-group">
+      <label>Aloituspäivä (yyyy-mm-dd)</label>
+      <input type="date" name="startDate" min="2015-04-21" max="3000-01-01" class="form-control" value="{{poll.startDate}}" required>
+    </div>
+
+    <div class="form-group">
+      <label>Lopetuspäivä (yyyy-mm-dd)</label>
+      <input type="date" name="endDate" min="2015-04-21" max="3000-01-01" value="{{poll.endDate}}" class="form-control" required>
+    </div>
+
+
+    <div>
+      <label>Mitä äänestäjälle näytetään tuloksista</label>
+      <br>
+      <input type="radio" value="A" name="visibility" required>Kaikki
+      <br>
+      <input type="radio" value="N" name="visibility" required>Ei mitään
+      <br>
+      <input type="radio" value="T" name="visibility" required>Kärki
+    </div>  
+
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary">Tallenna muutokset</button>
+    </div>
+
+    
+  </form>
+{% endblock %}
+

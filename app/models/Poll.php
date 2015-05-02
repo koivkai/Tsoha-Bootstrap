@@ -60,6 +60,30 @@ class Poll extends BaseModel {
 		return null;
 	}
 
+	public static function findByOwnerID($searchedID) {
+		$query = DB::connection()->prepare('select * from Poll where ownerid= :ownerid');
+		$query->execute(array('ownerid' => $searchedID));
+		$rows = $query->fetchAll();
+
+		$polls = array();
+
+		foreach ($rows as $row) {
+
+			$polls[] = new Poll(array(
+				'pollID' => $row['pollid'],
+				'name' => $row['name'],
+				'startDate' => $row['startdate'],
+				'endDate' => $row['enddate'],
+				'visibility' => $row['visibility'],
+				'ownerid' => $row['ownerid']
+			));
+
+		}
+
+		return $polls;
+
+	}
+
 	
 
 	public function save(){
@@ -68,15 +92,18 @@ class Poll extends BaseModel {
     	$query->execute(array('name' => $this->name, 'startdate' => $this->startDate, 'enddate' => $this->endDate, 'visibility' => $this->visibility, 'ownerid' => $this->ownerid));
  
    		 $row = $query->fetch();
-
-//    Kint::trace();
-//    Kint::dump($row);
  
     	$this->pollID = $row['pollid'];
   	}
 
-	public static function update() {
-		
+	public function update() {
+		$query = DB::connection()->prepare('UPDATE Poll SET name = :name, startdate = :startdate, enddate = :enddate, visibility = :visibility WHERE pollid = :pollid');
+    	$query->execute(array('name' => $this->name, 'startdate' => $this->startDate, 'enddate' => $this->endDate, 'visibility' => $this->visibility, 'pollid' => $this->pollID));
+	}
+
+	public function destroy() {
+		$query = DB::connection()->prepare('DELETE FROM Poll WHERE pollid = :pollid');
+    	$query->execute(array('pollid' => $this->pollID));
 	}
 
 	public function valitade_name() {

@@ -3,14 +3,36 @@
 class VoteController extends BaseController{
   
 	public static function vote($optionID) {
-
+		self::check_logged_in();
+		
 		$option = Option::findByOptionID($optionID);
 
-		$currentVotes = $option->currentVotes(); 
+		$pollid = $option->parentPoll;
+		$user = self::get_user_logged_in();
+    	$userid = $user->voterID;
 
-		Option::vote($optionID, $currentVotes);
+    	if (!Vote::hasVoted($pollid, $userid)) {
+    		$currentVotes = $option->currentVotes(); 
 
-		Redirect::to('/Polls', array('message' => 'Kiitos äänestämisestä!'));
+			Option::vote($optionID, $currentVotes);
+
+			$castdate = date("Y-m-d");
+
+			$vote = new Vote(array(
+			'caster' => $userid,
+			'castin' => $pollid,
+			'castdate' => $castdate
+			));
+
+			$vote->save();
+
+			Redirect::to('/Polls/results/' . $pollid, array('message' => 'Kiitos äänestämisestä!'));
+    	} else {
+    		Redirect::to('/Polls', array('message' => 'Olet jo osallistunut tähän äänestykseen.'));
+    	}
+
+
+		
 	}
 
 }

@@ -10,10 +10,8 @@ class VoterController extends BaseController{
 
     	$user = Voter::authenticate($params['username'], $params['password']);
 
-    	Kint::dump($user);
-
     	if(!$user){
-      	View::make('user/loginPage.html', array('error' => 'Väärä käyttäjätunnus tai salasana!', 'username' => $params['username']));
+      	View::make('user/loginPage.html', array('message' => 'Väärä käyttäjätunnus tai salasana!'));
     	}else{
       		$_SESSION['user'] = $user->voterID;
 

@@ -12,13 +12,9 @@ class Voter extends BaseModel {
 
   	public static function authenticate($username, $password) {
 
-  		Kint::dump($username);
-  		Kint::dump($password);
-
   		$query = DB::connection()->prepare('SELECT * FROM Voter WHERE username = :name AND password = :password LIMIT 1');
 		$query->execute(array('name' => $username, 'password' => $password));
 		$row = $query->fetch();
-		Kint::dump($row);
 		if($row){
 
 			$voter = new Voter(array(
@@ -45,9 +41,6 @@ class Voter extends BaseModel {
  
    		 $row = $query->fetch();
 
-//    Kint::trace();
-//    Kint::dump($row);
- 
     	$this->voterID = $row['voterid'];
   	}
 

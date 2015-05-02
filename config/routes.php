@@ -38,6 +38,10 @@
     OptionController::store();
   });
 
+  $routes->get('/Polls/myPolls', function() {
+    PollController::makeUserPollList();
+  });
+
   $routes->get('/Polls', function() {
     PollController::makePollList();
   });
@@ -47,7 +51,7 @@
   });
 
   $routes->post('/logout', function(){
-  VoterController::logout();
+    VoterController::logout();
   });
 
   $routes->get('/Polls/new', function() {
@@ -62,28 +66,56 @@
     OptionController::newOption($id);
   });
 
+  $routes->get('/Polls/:id/optionList', function($id) {
+    OptionController::makeOptionList($id);
+  });
+
   $routes->get('/Polls/votePage/:id', function($id) {
     PollController::makeVotePage($id);
   });
 
-  $routes->get('/login', function(){
-  // Kirjautumislomakkeen esittäminen
-  VoterController::login();
+  $routes->get('/Polls/results/:id', function($id) {
+    PollController::makeResultsPage($id);
   });
 
-$routes->post('/login', function(){
-  // Kirjautumisen käsittely
-  VoterController::handle_login();
-});
+  $routes->get('/login', function(){
+    VoterController::login();
+  });
 
-$routes->post('/reqister', function(){
-  // Kirjautumisen käsittely
-  VoterController::store();
-});
+  $routes->post('/login', function(){
+    VoterController::handle_login();
+  });
 
-$routes->get('/reqister', function(){
-  // Kirjautumislomakkeen esittäminen
-  VoterController::makeReqisterationPage();
+  $routes->post('/reqister', function(){
+    VoterController::store();
+  });
+
+  $routes->get('/reqister', function(){
+    VoterController::makeReqisterationPage();
+  });
+
+  $routes->get('/Polls/:id/edit', function($id){
+    PollController::edit($id);
+  });
+
+  $routes->post('/Polls/:id/edit', function($id){
+    PollController::update($id);
+  });
+
+  $routes->post('/Polls/:id/destroy', function($id){
+    PollController::destroy($id);
+  });
+
+  $routes->get('/Polls/editOption/:id', function($id){
+    OptionController::edit($id);
+  });
+
+  $routes->post('/Polls/editOption/:id', function($id){
+    OptionController::update($id);
+  });
+
+  $routes->post('/Polls/destroyOption/:id', function($id){
+    OptionController::destroy($id);
   });
 
 
