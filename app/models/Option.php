@@ -83,4 +83,42 @@ class Option extends BaseModel {
     		$query->execute(array('name' => $this->name, 'optiondesc' => $this->desc, 'optionid' => $this->optionID));
 		}
 
+		public function valitade_name() {
+			$errors = array();
+
+			$nameToValidate = $this->name;
+
+			$maxLtestScore = BaseModel::validate_max_lenght($nameToValidate, 100);
+			$minLtestScore = BaseModel::validate_min_lenght($nameToValidate, 1);
+
+			if (!$maxLtestScore) {
+				array_push($errors, 'Nimen pitää olla 1-100 merkkiä pitkä');
+			}
+
+			if (!$minLtestScore) {
+				array_push($errors, 'Nimen pitää olla 1-100 merkkiä pitkä');
+			}
+
+			return $errors;
+		}
+
+		public function valitade_desc() {
+			$errors = array();
+
+			$descToValidate = $this->desc;
+
+			$maxLtestScore = BaseModel::validate_max_lenght($descToValidate, 400);
+			$minLtestScore = BaseModel::validate_min_lenght($descToValidate, 1);
+
+			if (!$maxLtestScore) {
+				array_push($errors, 'Kuvauksen pitää olla 1-400 merkkiä pitkä');
+			}
+
+			if (!$minLtestScore) {
+				array_push($errors, 'Kuvauksen pitää olla 1-400 merkkiä pitkä');
+			}
+
+			return $errors;
+		}
+
 } 
