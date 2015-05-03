@@ -169,6 +169,13 @@ class Poll extends BaseModel {
 		if (!$isADatetestScore) {
 			array_push($errors, 'Päivämäärä tulee antaa muodossa yyyy-mm-dd');
 		}
+
+		$startdate = $this->startDate;
+
+		if($startDate > $eDateToValidate) {
+			array_push($errors, 'Äänestyksen loppupäivän tulee olla alkupäivää myöhempi päivämäärä');
+		}
+
 		return $errors;
 	}
 }

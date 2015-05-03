@@ -24,13 +24,11 @@
     HelloWorldController::votingPage();
   });
 
-
   $routes->get('/voterList', function() {
     HelloWorldController::voterList();
   });
 
   $routes->post('/Polls/vote/:id', function($id) {
-    Kint::dump($id);
     VoteController::vote($id);
   });
 
@@ -44,6 +42,10 @@
 
   $routes->get('/Polls', function() {
     PollController::makePollList();
+  });
+
+  $routes->get('/Polls/resultsList', function() {
+    PollController::makeResultList();
   });
 
   $routes->post('/Polls/', function() {

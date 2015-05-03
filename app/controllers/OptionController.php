@@ -15,7 +15,9 @@ class OptionController extends BaseController{
 
 		$option->save();
 
-		Redirect::to('/Polls', array('message' => 'Vaihtoehto lisätty!'));
+    $parentPoll = $parametrit['parentPoll'];
+
+		Redirect::to('/Polls/' . $parentPoll . '/optionList', array('message' => 'Vaihtoehto lisätty!'));
 	}
 
 	public static function newOption($id) {
@@ -82,7 +84,7 @@ class OptionController extends BaseController{
     
       $option = new Option($attributes);
 
-     
+     $parentPoll = $option->parentPoll;
 
  //     $errors = $poll->errors();
 
@@ -92,16 +94,16 @@ class OptionController extends BaseController{
       
         $option->update();
 
-        Redirect::to('/Polls/myPolls' , array('message' => 'Vaihtoehtoa on muokattu onnistuneesti!'));
+        Redirect::to('/Polls/' . $parentPoll . '/optionList' , array('message' => 'Vaihtoehtoa on muokattu onnistuneesti!'));
      // }
   	}  
 
   	public static function destroy($id) {
     	$option = Option::findByOptionID($id);
-
+      $parentPoll = $option->parentPoll;
     	$option->destroy();
 
-    	Redirect::to('/Polls/myPolls' , array('message' => 'Vaihtoehto poistettu.'));
+    	Redirect::to('/Polls/' . $parentPoll . '/optionList' , array('message' => 'Vaihtoehto poistettu.'));
   	}
 
 

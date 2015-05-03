@@ -9,6 +9,13 @@ class PollController extends BaseController{
 		View::make('Polls/pollList.html', array('polls' => $polls));
 	}
 
+  public static function makeResultList () {
+
+    $polls = Poll::AllPolls();
+
+    View::make('Polls/pollResultList.html', array('polls' => $polls));
+  }
+
   public static function makeUserPollList() {
     self::check_logged_in();
 
@@ -45,7 +52,7 @@ class PollController extends BaseController{
 
 		$Poll->save();
 
-		Redirect::to('/Polls', array('message' => 'Äänestys lisätty!'));
+		Redirect::to('/Polls/myPolls', array('message' => 'Äänestys lisätty!'));
 	}  
 
 	public static function edit($id){
@@ -125,7 +132,7 @@ class PollController extends BaseController{
   }
 
   public static function makeResultsPage($id) {
-    self::check_logged_in();
+    
     $poll = Poll::findByID($id);
 
     $options = Option::findByID($id);

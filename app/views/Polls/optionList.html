@@ -43,6 +43,10 @@
 
   <div><a href="{{base_path}}/Polls/{{Poll.pollID}}/addOption">Lisää vaihtoehto</a></div>
 
-
+  {% if message %}
+  <div class="alert alert-success">
+  {{message}}
+  </div>
+  {% endif  %}
 
 {% endblock %}

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+  
+<h1>Äänestykset</h1>
+
+  
+
+  <table class="table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th>Äänestyksen nimi</th>
+        <th>Alkupäivä</th>
+        <th>Loppupäivä</th>
+        
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for Poll in polls %}
+        <tr>
+          <td>{{Poll.name}}</td>
+          <td>{{Poll.startDate}}</td>
+          <td>{{Poll.endDate}}</td>
+          
+          <td><a href='{{base_path}}/Polls/results/{{Poll.pollID}}'>Tuloksiin</a></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+
+  {% if message %}
+  <div class="alert alert-success">
+  {{message}}
+  </div>
+  {% endif  %}
+
+{% endblock %}
