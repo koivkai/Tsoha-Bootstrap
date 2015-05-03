@@ -50,8 +50,6 @@ class VoterController extends BaseController{
       self::check_logged_in();
 
       $user = self::get_user_logged_in();
-
-      Kint::dump($user);
       
       View::make('user/voterEdit.html', array('user' => $user));
           
@@ -64,8 +62,6 @@ class VoterController extends BaseController{
       $user = self::get_user_logged_in();
       $userID = $user->voterID;
 
-      Kint::dump($userID);
-      Kint::dump($id);
 
       if ($userID == $id) {
 
