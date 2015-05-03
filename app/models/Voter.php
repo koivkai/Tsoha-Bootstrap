@@ -67,9 +67,8 @@ class Voter extends BaseModel {
 		return null;
 	}
 
-
-
-	public static function updateVoter() {
-		
+	public function update() {
+		$query = DB::connection()->prepare('UPDATE Voter SET username = :username, password = :password, firstname = :firstname, lastname = :lastname, email = :email WHERE voterid = :voterid');
+    	$query->execute(array('username' => $this->username, 'password' => $this->password, 'firstname' => $this->firstname, 'lastname' => $this->lastname, 'email' => $this->email, 'voterid' => $this->voterID));
 	}
 }

@@ -118,6 +118,18 @@
     OptionController::destroy($id);
   });
 
+  $routes->post('/myProfile/:id', function($id){
+    VoterController::update($id);
+  });
+
+  $routes->get('/myProfile', function(){
+    VoterController::edit();
+  });
+
+  
+
+
+
 
 
 

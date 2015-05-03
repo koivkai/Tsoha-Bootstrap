@@ -44,6 +44,53 @@ class VoterController extends BaseController{
 		$voter->save();
 
 		Redirect::to('/Polls', array('message' => 'Rekisteröityminen onnistui'));
-	}  
+	}
+
+  public static function edit(){
+      self::check_logged_in();
+
+      $user = self::get_user_logged_in();
+
+      Kint::dump($user);
+      
+      View::make('user/voterEdit.html', array('user' => $user));
+          
+    }
+
+    public static function update($id){
+
+      self::check_logged_in();
+
+      $user = self::get_user_logged_in();
+      $userID = $user->voterID;
+
+      Kint::dump($userID);
+      Kint::dump($id);
+
+      if ($userID == $id) {
+
+        $parametrit = $_POST;
+
+        $voter = new Voter(array(
+          'username' => $parametrit['username'],
+          'password' => $parametrit['password'],
+          'firstname' => $parametrit['firstname'],
+          'lastname' => $parametrit['lastname'],
+          'email' => $parametrit['email']
+        ));
+
+        $voter->voterID = $id;
+
+      
+
+        $voter->update();
+
+        Redirect::to('/' , array('message' => 'Käyttäjätietojen muutokset tallennettu'));
+        } else {
+          Redirect::to('/' , array('message' => 'Virhe käyttäjätietojen muokkauksessa:muokatan käyttä id eroaa nykyisen käyttäjän id:stä'));
+        }
+  }
+
+
 
 }
